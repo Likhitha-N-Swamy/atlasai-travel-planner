@@ -1,0 +1,7 @@
+### AtlasAI test request
+POST http://127.0.0.1:8000/plan
+Content-Type: application/json
+
+{
+  "query": "I’m going to go to Bangalore, let’s plan my trip."
+}
