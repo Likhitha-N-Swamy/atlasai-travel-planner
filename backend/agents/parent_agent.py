@@ -10,8 +10,8 @@ from datetime import datetime
 from typing import Dict, Any, Tuple, List, Optional
 
 from .tools.geocode_tool import geocode
-from .agents.tools.weather_agent_stub import get_weather
-from .agents.tools.places_agent_stub import find_pois
+from .tools.weather_agent_stub import get_weather
+from .tools.places_agent_stub import find_pois
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
