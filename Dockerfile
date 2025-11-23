@@ -1,31 +1,18 @@
-# Dockerfile for AtlasAI – Multi-Agent Travel Planner
-
 FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+# Copy repository into image
+COPY . /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Install backend dependencies (from backend/requirements.txt)
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Copy requirements first for better caching
-COPY backend/requirements.txt .
+# Cache bust argument so Docker rebuilds when we change this value
+ARG CACHEBUST=20251123090516
+RUN echo "cachebust: "
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+EXPOSE 8080
 
-# Copy application code
-COPY backend/ .
-
-# Expose port
-EXPOSE 8000
-
-# Run the application
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-
+# Use  (Docker expansion) inside bash -lc
+CMD ["bash", "-lc", "uvicorn app:app --host 0.0.0.0 --port "]
