@@ -13,8 +13,5 @@ RUN [ -f backend/agents/__init__.py ] || mkdir -p backend/agents && touch backen
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "uvicorn backend.app:app --host 0.0.0.0 --port $PORT"]
-
-
-
-
+# Debug-print the PORT and then start uvicorn using the injected PORT (fallback 8000)
+CMD ["sh", "-c", "echo RESOLVED_PORT=${PORT:-not-set} && uvicorn backend.app:app --host 0.0.0.0 --port ${PORT:-8000}"]
