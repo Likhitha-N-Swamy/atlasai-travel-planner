@@ -9,7 +9,7 @@ import logging
 from datetime import datetime
 from typing import Dict, Any, Tuple, List, Optional
 
-from .agents.tools.geocode_tool import geocode
+from .tools.geocode_tool import geocode
 from .agents.tools.weather_agent_stub import get_weather
 from .agents.tools.places_agent_stub import find_pois
 
