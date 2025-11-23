@@ -1,17 +1,12 @@
-# DOCKERFILE FOR RAILWAY (backend/app in backend/)
 FROM python:3.10-slim
 
 WORKDIR /app
-
-# Copy project files
 COPY . /app
 
-# Install backend dependencies
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Expose a default container port
 EXPOSE 8080
 
-# Run FastAPI from backend/app.py
-# Use ${PORT} (expanded in bash). Fallback to 8080 if PORT is empty.
-CMD ["bash", "-lc", "uvicorn backend.app:app --host 0.0.0.0 --port ${PORT:-8080}"]
+# Run uvicorn with backend as the app directory so imports like `from agents...` inside backend/app.py` resolve.
+# Use ${PORT:-8080} fallback to avoid startup failures if PORT not set.
+CMD ["bash", "-lc", "uvicorn app:app --app-dir backend --host 0.0.0.0 --port ${PORT:-8080}"]
