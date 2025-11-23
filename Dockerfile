@@ -1,17 +1,17 @@
-# Use Python base
+# Use a small Python base image
 FROM python:3.10-slim
 
-# Set work directory
+# Set work dir
 WORKDIR /app
 
-# Copy everything
+# Copy the repo into the image
 COPY . /app
 
-# Install backend dependencies
+# Install dependencies from backend requirements
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Expose Railway port
+# Expose the container port (optional)
 EXPOSE 8080
 
-# Start FastAPI
+# Use bash -lc and ${PORT} so the env var is expanded correctly in Docker
 CMD ["bash", "-lc", "uvicorn app:app --host 0.0.0.0 --port ${PORT}"]
