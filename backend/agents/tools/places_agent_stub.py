@@ -9,8 +9,8 @@ from typing import List, Dict, Any, Optional
 
 import requests
 
-from utils.haversine import haversine_distance
-from utils.cache import SimpleCache
+from ...utils.haversine import haversine_distance
+from ...utils.cache import SimpleCache
 
 
 # Overpass API endpoint
